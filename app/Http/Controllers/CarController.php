@@ -37,4 +37,10 @@ class CarController extends Controller
 
         return respondWithData(data: $car, message: 'Car data stored');
     }
+
+    public function show(Car $car) : JsonResponse {
+        $car->total_stock = Stock::where('stockable_id', $car->_id)->sum('amount');
+
+        return respondWithData($car);
+    }
 }

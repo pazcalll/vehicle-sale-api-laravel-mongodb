@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Stock;
 use App\Models\Vehicle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,6 +13,11 @@ use Illuminate\Http\Request;
 class CarController extends Controller
 {
     //
+    function index() : JsonResponse {
+        $data = Car::withSum('stocks', 'amount');
+        return respondWithData($data);
+    }
+
     function store(): JsonResponse {
         $validatedData = request()->validate([
             'release_year' => ['required', 'max:4'],

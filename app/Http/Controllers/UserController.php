@@ -21,10 +21,7 @@ class UserController extends Controller
         $validatedData['password'] = Hash::make($validatedData['password']);
         $user = User::create($validatedData);
 
-        $token = auth()->attempt([
-            'email' => request()->email,
-            'password' => request()->password
-        ]);
+        $token = auth()->login($user);
 
         return response()->json([
             'status' => 'success',
@@ -44,16 +41,19 @@ class UserController extends Controller
             'password' => ['required', 'max:24']
         ]);
 
-        $token = Auth::attempt($validatedData);
-        $user = Auth::user();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User logged in successfully',
-            'user' => $user,
-            'authorisation' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-        ]);
+        if ($token = Auth::attempt($validatedData)) {
+            $user = Auth::user();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User logged in successfully',
+                'user' => $user,
+                'authorisation' => [
+                    'token' => $token,
+                    'type' => 'bearer',
+                ]
+            ]);
+        }
+
+        return respondWithMessage('Invalid credential', 400);
     }
 }

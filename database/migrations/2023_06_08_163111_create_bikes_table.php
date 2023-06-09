@@ -16,10 +16,13 @@ class CreateBikesTable extends Migration
         Schema::create('bikes', function (Blueprint $table) {
             $table->id();
 
+            $table->string('release_year');
+            $table->string('color');
+            $table->bigInteger('price');
             $table->string('machine');
             $table->string('suspension_type');
             $table->string('transmission_type');
-            $table->foreignId('vehicle_id')->constrained('vehicles', 'id');
+            $table->foreignId('vehicle_id')->constrained();
 
             $table->timestamps();
         });

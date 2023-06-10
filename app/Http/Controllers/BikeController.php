@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Bike;
 use App\Models\Stock;
 use App\Models\Vehicle;
+use App\Services\StockService;
 use App\Services\VehicleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -53,5 +54,11 @@ class BikeController extends Controller
             ->sum('amount');
 
         return respondWithData($bike);
+    }
+
+    public function sellReport(Bike $bike) : JsonResponse {
+        $report = StockService::sellReport(Bike::class, $bike);
+
+        return respondWithData($report);
     }
 }

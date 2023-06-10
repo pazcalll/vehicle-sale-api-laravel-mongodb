@@ -7,10 +7,12 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use App\Models\Stock;
 use App\Models\Vehicle;
+use App\Services\StockService;
 use App\Services\VehicleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CarController extends Controller
 {
@@ -50,5 +52,11 @@ class CarController extends Controller
         $car->total_stock = Stock::where('stockable_id', $car->_id)->sum('amount');
 
         return respondWithData($car);
+    }
+
+    public function sellReport(Car $car) : JsonResponse {
+        $report = StockService::sellReport(Car::class, $car);
+
+        return respondWithData($report);
     }
 }

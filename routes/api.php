@@ -26,8 +26,10 @@ Route::post('users/login', [UserController::class, 'login']);
 Route::post('users/register', [UserController::class, 'register']);
 Route::middleware('auth:api')->group(function ()
 {
+    Route::get('bikes/{bike}/sell-report', [BikeController::class, 'sellReport']);
     Route::apiResource('bikes', BikeController::class);
 
+    Route::get('cars/{car}/sell-report', [CarController::class, 'sellReport']);
     Route::apiResource('cars', CarController::class);
 
     Route::post('stocks/car', [StockController::class, 'storeCar']);

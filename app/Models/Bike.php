@@ -14,7 +14,9 @@ class Bike extends Vehicle
         'machine',
         'suspension_type',
         'transmission_type',
-        'vehicle_id'
+        'vehicle_id',
+
+        'user_id'
     ];
 
     // RELATIONS

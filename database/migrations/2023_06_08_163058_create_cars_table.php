@@ -25,6 +25,7 @@ class CreateCarsTable extends Migration
             $table->integer('passenger_capacity');
             $table->string('type');
             $table->foreignId('vehicle_id')->constrained();
+            $table->foreignId('user_id')->constrained();
 
             $table->timestamps();
         });

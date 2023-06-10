@@ -14,7 +14,9 @@ class Car extends Vehicle
         'machine',
         'passenger_capacity',
         'type',
-        'vehicle_id'
+        'vehicle_id',
+
+        'user_id'
     ];
 
     // RELATIONS
@@ -22,7 +24,7 @@ class Car extends Vehicle
         return $this->belongsTo(Vehicle::class);
     }
 
-    public function stockable() : MorphMany {
+    public function stocks() : MorphMany {
         return $this->morphMany(Stock::class, 'stockable');
     }
 }

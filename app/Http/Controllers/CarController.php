@@ -7,14 +7,21 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use App\Models\Stock;
 use App\Models\Vehicle;
+use App\Services\VehicleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CarController extends Controller
 {
     //
     function index() : JsonResponse {
-        $data = Car::withSum('stocks', 'amount');
+        $data = Car::where('user_id', Auth::user()->id)
+            ->paginate()
+            ->toArray();
+
+        $data['data'] = VehicleService::stockMapper($data);
+
         return respondWithData($data);
     }
 
@@ -32,6 +39,7 @@ class CarController extends Controller
         $validatedData['price'] = intval($validatedData['price']);
         $vehicle = Vehicle::create($validatedData);
 
+        $validatedData['user_id'] = Auth::user()->id;
         $validatedData['vehicle_id'] = $vehicle->id;
         $car = Car::create($validatedData);
 

@@ -23,6 +23,7 @@ class CreateBikesTable extends Migration
             $table->string('suspension_type');
             $table->string('transmission_type');
             $table->foreignId('vehicle_id')->constrained();
+            $table->foreignId('user_id')->constrained();
 
             $table->timestamps();
         });

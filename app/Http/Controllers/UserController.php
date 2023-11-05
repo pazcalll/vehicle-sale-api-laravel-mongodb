@@ -47,7 +47,7 @@ class UserController extends Controller
                 'status' => 'success',
                 'message' => 'User logged in successfully',
                 'user' => $user,
-                'authorisation' => [
+                'authorization' => [
                     'token' => $token,
                     'type' => 'bearer',
                 ]
@@ -55,5 +55,9 @@ class UserController extends Controller
         }
 
         return respondWithMessage('Invalid credential', 400);
+    }
+
+    function show() : User {
+        return Auth::user();
     }
 }

@@ -27,6 +27,7 @@
         "#vendor": "resources/js/React/public/vendor"
     },
     "dependencies": {
-        "bootstrap": "^4.2.1"
+        "bootstrap": "^4.2.1",
+        "toastr": "^2.1.4"
     }
 }
